@@ -1,0 +1,148 @@
+      body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: radial-gradient(circle at center, #222, #000);
+        color: white;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.5s;
+      }
+
+      .player {
+        width: 400px;
+        background: #181818;
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      }
+
+      #cover {
+        width: 100%;
+        height: 300px;
+        /* Gradiente de fundo fixo */
+        background: linear-gradient(135deg, #282828 0%, #121212 100%);
+        border-radius: 12px;
+        background-size: cover;
+        background-position: center;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 80px;
+        color: #1db954;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        transition: 0.3s;
+        background-repeat: no-repeat;
+      }
+
+      h3 {
+        margin: 10px 0 5px;
+        text-align: center;
+      }
+
+      p {
+        margin: 0 0 15px;
+        text-align: center;
+        color: #b3b3b3;
+        font-size: 0.9rem;
+      }
+
+      .upload-wrapper {
+        position: relative;
+        margin-bottom: 15px;
+      }
+
+      #upload {
+        position: absolute;
+        width: 100%;
+        height: 40px;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 2;
+      }
+
+      .upload-button {
+        display: block;
+        width: 100%;
+        height: 40px;
+        background: #1db954;
+        color: #000;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      #upload:hover+.upload-button {
+        background: #1ed760;
+        transform: scale(1.02);
+      }
+
+      audio {
+        width: 100%;
+        height: 35px;
+        filter: invert(100%) hue-rotate(180deg) brightness(1.5);
+        margin-bottom: 15px;
+      }
+
+      canvas {
+        width: 100%;
+        height: 60px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+      }
+
+      .equalizer {
+        display: flex;
+        justify-content: center;
+        background: #121212;
+        padding: 20px 5px;
+        border-radius: 10px;
+        margin-top: 20px;
+        height: 150px;
+      }
+
+      .equalizer label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 9px;
+        color: #1db954;
+        width: 35px;
+        position: relative;
+      }
+
+      .equalizer input {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 80px;
+        height: 3px;
+        background: #444;
+        transform: rotate(-90deg);
+        margin: 50px 0;
+        cursor: pointer;
+      }
+
+      .equalizer input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 10px;
+        height: 10px;
+        background: #1db954;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #1db954;
+      }
+
+      select {
+        width: 100%;
+        margin-top: 15px;
+        padding: 10px;
+        background: #282828;
+        color: #1db954;
+        border: 1px solid #333;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
