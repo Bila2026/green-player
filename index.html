@@ -2,272 +2,61 @@
 <html lang="pt-BR">
     <head>
         <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+
+        <meta name="theme-color" content="#2ecc71" />
+
+        <meta
+            name="description"
+            content="Green Player Ultimate: Player de música com equalizador de 10 bandas, visualizador dinâmico e suporte a playlists locais."
+        />
+        <meta
+            name="keywords"
+            content="music player, web audio, equalizer, visualizer, pwa, green player"
+        />
+        <meta name="author" content="Seu Usuário GitHub" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="🔊 Green Player Ultimate" />
+        <meta
+            property="og:description"
+            content="Ouça suas músicas com equalizador profissional e visualizador dinâmico direto no navegador."
+        />
+        <meta
+            property="og:url"
+            content="https://Bila2026.github.io/green-player/"
+        />
+        <meta
+            property="og:image"
+            content="https://Bila2026.github.io/green-player/icons/og-image.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />  
+        <meta name="twitter:title" content="🔊 Green Player Ultimate" />
+        <meta
+            name="twitter:description"
+            content="Equalizador de 10 bandas e presets customizados para Funk, Techno e mais."
+        />
+        <meta
+            name="twitter:image"
+            content="https://Bila2026.github.io/green-player/icons/og-image.png"
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+        />
+        <meta name="apple-mobile-web-app-title" content="Green Player" />
+
         <title>🔊 Green Player Ultimate</title>
-        <link rel="manifest" href="manifest.json">        
+        <link rel="manifest" href="manifest.json" />
         <link
             href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Lato:wght@400;700&display=swap"
             rel="stylesheet"
         />
+        <link rel="stylesheet" href="./assets/style.css" />
         <link rel="icon" href="icons/favicon.ico" type="image/x-icon" />
-
-        <style>
-            body {
-                margin: 0;
-                font-family: 'Lato', sans-serif;
-                font-weight: 700;
-                background: #000;
-                color: white;
-                min-height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 10px;
-                box-sizing: border-box;
-                transition: background 0.15s ease-out;
-                overflow-x: hidden;
-            }
-
-            /* PLAYER */
-            .player {
-                width: 100%;
-                max-width: 400px;
-                background: #181818;
-                padding: 20px;
-                border-radius: 16px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-                z-index: 10;
-            }
-
-            /* CAPA */
-            #cover {
-                width: 100%;
-                aspect-ratio: 1 / 1;
-                background: #282828;
-                border-radius: 12px;
-                margin-bottom: 12px;
-                position: relative;
-                overflow: hidden;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            #cover-img {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                background-size: cover;
-                background-position: center;
-                z-index: 10;
-                display: none;
-            }
-
-            #bg-video {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                z-index: 5;
-                display: none;
-            }
-
-            #cover-icon {
-                font-size: 60px;
-                color: #1db954;
-                z-index: 1;
-            }
-
-            h3,
-            p {
-                text-align: center;
-                margin: 5px 0;
-            }
-
-            p {
-                color: #b3b3b3;
-                font-size: 0.85rem;
-                margin-bottom: 12px;
-            }
-
-            /* NOVO: PLAYLIST CONTAINER */
-            #playlist-container {
-                margin: 15px 0;
-                max-height: 120px;
-                overflow-y: auto;
-                background: #121212;
-                border-radius: 8px;
-                border: 1px solid #282828;
-            }
-
-            #playlist {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            #playlist li {
-                padding: 10px 15px;
-                border-bottom: 1px solid #1f1f1f;
-                cursor: pointer;
-                font-size: 0.85rem;
-                color: #b3b3b3;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            #playlist li:hover {
-                background: #282828;
-                color: #fff;
-            }
-
-            #playlist li.active {
-                color: #1db954;
-                background: rgba(29, 185, 84, 0.1);
-                font-weight: bold;
-                border-left: 3px solid #1db954;
-            }
-
-            /* Scrollbar */
-            #playlist-container::-webkit-scrollbar {
-                width: 4px;
-            }
-
-            #playlist-container::-webkit-scrollbar-thumb {
-                background: #333;
-                border-radius: 10px;
-            }
-
-            /* UPLOAD */
-            .upload-wrapper {
-                position: relative;
-                margin-bottom: 12px;
-            }
-
-            #upload {
-                position: absolute;
-                width: 100%;
-                height: 40px;
-                opacity: 0;
-                cursor: pointer;
-                z-index: 20;
-            }
-
-            .upload-button {
-                display: block;
-                background: #1db954;
-                color: #000;
-                text-align: center;
-                line-height: 40px;
-                border-radius: 5px;
-                font-weight: bold;
-            }
-
-            audio {
-                width: 100%;
-                height: 35px;
-                margin-bottom: 10px;
-                filter: invert(100%) hue-rotate(180deg) brightness(1.5);
-            }
-
-            canvas {
-                width: 100%;
-                height: 50px;
-                background: rgba(0, 0, 0, 0.3);
-                border-radius: 5px;
-            }
-
-            .equalizer {
-                display: flex;
-                justify-content: space-between;
-                background: #121212;
-                padding: 10px 5px;
-                border-radius: 10px;
-                margin-top: 12px;
-                height: 110px;
-            }
-
-            .equalizer label {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                font-size: 8px;
-                color: #1db954;
-                width: 30px;
-            }
-
-            .equalizer input {
-                -webkit-appearance: none;
-                width: 60px;
-                height: 2px;
-                background: #444;
-                transform: rotate(-90deg);
-                margin: 35px 0;
-                cursor: pointer;
-            }
-
-            .equalizer input::-webkit-slider-thumb {
-                -webkit-appearance: none;
-                width: 10px;
-                height: 10px;
-                background: #1db954;
-                border-radius: 50%;
-            }
-
-            select {
-                width: 100%;
-                margin-top: 12px;
-                padding: 8px;
-                background: #282828;
-                color: #1db954;
-                border: 1px solid #333;
-                border-radius: 5px;
-            }
-
-            #playlist li {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .remove-btn {
-                color: #ff4444;
-                font-weight: bold;
-                padding: 5px 10px;
-                cursor: pointer;
-                border-radius: 4px;
-                opacity: 0.5;
-                transition: 0.2s;
-            }
-
-            .remove-btn:hover {
-                opacity: 1;
-                background: rgba(255, 68, 68, 0.2);
-            }
-
-            /* ===== TABLET / DESKTOP (opcional) ===== */
-            @media (min-width: 768px) {
-                .player {
-                    padding: 25px;
-                }
-
-                #cover-icon {
-                    font-size: 80px;
-                }
-
-                p {
-                    font-size: 0.9rem;
-                }
-
-                canvas {
-                    height: 60px;
-                }
-
-                .equalizer {
-                    height: 130px;
-                }
-            }
-        </style>
     </head>
 
     <body>
@@ -388,7 +177,7 @@
                 >
             </div>
 
-            <select id="preset">
+            <select name="preset" id="preset">
                 <option value="flat">Default</option>
                 <optgroup label="Pessoal">
                     <option value="techno">Techno</option>
@@ -411,367 +200,6 @@
             </select>
         </div>
 
-        <script src="jsmediatags/dist/jsmediatags.min.js"></script>
-        <script>
-            const audio = document.getElementById('audio');
-            const upload = document.getElementById('upload');
-            const coverImg = document.getElementById('cover-img');
-            const bgVideo = document.getElementById('bg-video');
-            const coverIcon = document.getElementById('cover-icon');
-            const canvas = document.getElementById('visualizer');
-            const ctx = canvas.getContext('2d');
-
-            let playlist = [];
-            let currentTrackIndex = 0;
-            let audioContext,
-                source,
-                analyser,
-                filters = [],
-                isInitialized = false;
-
-            // --- PLAYLIST LOGIC ---
-            upload.addEventListener('change', (e) => {
-                const files = Array.from(e.target.files);
-                if (files.length === 0) return;
-
-                // Guarda onde a nova leva de músicas começa
-                const startIndex = playlist.length;
-
-                //Adiciona os arquivos no array interno (a playlist real)
-                files.forEach((file) => playlist.push(file));
-
-                // Atualiza a interface visual ( a lista que criamos abaixo da capa)
-                renderPlaylist();
-
-                // Solução que limpa a memória do botão de upload.
-                e.target.value = '';
-
-                // Inicia a música se o player estiver parado
-                if (audio.paused && audio.src === '') {
-                    loadTrack(startIndex);
-                }
-            });
-
-            function renderPlaylist() {
-                const list = document.getElementById('playlist');
-                list.innerHTML = '';
-
-                playlist.forEach((file, i) => {
-                    const li = document.createElement('li');
-                    if (i === currentTrackIndex) li.classList.add('active');
-
-                    // Nome da música (clicável para dar play)
-                    const trackName = document.createElement('span');
-                    trackName.style.flex = '1';
-                    trackName.innerText = `${i + 1}. ${file.name.replace(/\.[^/.]+$/, '')}`;
-                    trackName.onclick = () => loadTrack(i);
-
-                    // Botão de excluir (X)
-                    const removeBtn = document.createElement('span');
-                    removeBtn.className = 'remove-btn';
-                    removeBtn.innerText = '✕';
-                    removeBtn.onclick = (e) => {
-                        e.stopPropagation(); // Impede que o 'play' seja acionado ao excluir
-                        removeFromPlaylist(i);
-                    };
-
-                    li.appendChild(trackName);
-                    li.appendChild(removeBtn);
-                    list.appendChild(li);
-                });
-            }
-
-            function removeFromPlaylist(index) {
-                // Remove o item do array
-                playlist.splice(index, 1);
-
-                // Lógica se a música removida for a que está tocando
-                if (index === currentTrackIndex) {
-                    audio.pause();
-                    audio.src = '';
-                    document.getElementById('title').innerText =
-                        'Música removida';
-                    document.getElementById('artist').innerText =
-                        'Selecione outra';
-
-                    // Tenta tocar a próxima se houver
-                    if (playlist.length > 0) {
-                        const nextIndex = index >= playlist.length ? 0 : index;
-                        loadTrack(nextIndex);
-                    }
-                } else if (index < currentTrackIndex) {
-                    // Se removemos uma música que estava ACIMA da atual,
-                    // precisamos ajustar o índice para não perder a referência
-                    currentTrackIndex--;
-                }
-
-                renderPlaylist();
-            }
-            function loadTrack(index) {
-                if (index < 0 || index >= playlist.length) return;
-                currentTrackIndex = index;
-                const file = playlist[index];
-
-                // Reset visual
-                coverImg.style.display = 'none';
-                bgVideo.style.display = 'none';
-                coverIcon.style.display = 'block';
-
-                audio.src = URL.createObjectURL(file);
-                audio.play();
-                renderPlaylist();
-
-                // Meta tags
-                jsmediatags.read(file, {
-                    onSuccess: function (tag) {
-                        const t = tag.tags;
-                        document.getElementById('title').innerText =
-                            t.title || file.name;
-                        document.getElementById('artist').innerText =
-                            t.artist || 'Desconhecido';
-                        if (t.picture) {
-                            const { data, format } = t.picture;
-                            let base64 = '';
-                            for (let i = 0; i < data.length; i++)
-                                base64 += String.fromCharCode(data[i]);
-                            coverImg.style.backgroundImage = `url(data:${format};base64,${btoa(base64)})`;
-                            coverImg.style.display = 'block';
-                            coverIcon.style.display = 'none';
-                        } else {
-                            mostrarVideo();
-                        }
-                    },
-                    onError: () => mostrarVideo(),
-                });
-            }
-
-            audio.onended = () => {
-                if (currentTrackIndex < playlist.length - 1)
-                    loadTrack(currentTrackIndex + 1);
-            };
-
-            function mostrarVideo() {
-                coverImg.style.display = 'none';
-                coverIcon.style.display = 'none';
-                bgVideo.style.display = 'block';
-                bgVideo.load();
-                if (!audio.paused) bgVideo.play().catch(() => {});
-            }
-
-            // --- AUDIO ENGINE ---
-            audio.onplay = () => {
-                if (!isInitialized) initAudioContext();
-                if (bgVideo.style.display === 'block') bgVideo.play();
-            };
-            audio.onpause = () => bgVideo.pause();
-
-            function initAudioContext() {
-                audioContext = new (
-                    window.AudioContext || window.webkitAudioContext
-                )();
-                source = audioContext.createMediaElementSource(audio);
-                analyser = audioContext.createAnalyser();
-                analyser.fftSize = 256;
-
-                const freqs = [
-                    31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000,
-                ];
-                filters = freqs.map((f) => {
-                    let eq = audioContext.createBiquadFilter();
-                    eq.type = 'peaking';
-                    eq.frequency.value = f;
-                    eq.Q.value = 1.4;
-                    eq.gain.value = 0;
-                    return eq;
-                });
-
-                let lastNode = source;
-                filters.forEach((f) => {
-                    lastNode.connect(f);
-                    lastNode = f;
-                });
-                lastNode.connect(analyser);
-                analyser.connect(audioContext.destination);
-
-                isInitialized = true;
-                drawVisualizer();
-            }
-
-            function drawVisualizer() {
-                requestAnimationFrame(drawVisualizer);
-                const dataArray = new Uint8Array(analyser.frequencyBinCount);
-                analyser.getByteFrequencyData(dataArray);
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Ajuste de largura das barras
-                let barWidth = (canvas.width / dataArray.length) * 2.5;
-                let x = 0;
-
-                for (let i = 0; i < dataArray.length; i++) {
-                    // --- A MÁGICA ESTÁ AQUI ---
-                    // Antes estava 'dataArray[i] / 4'.
-                    // Diminuindo o divisor (ex: / 2.5) ou multiplicando, a barra sobe mais.
-                    let barHeight = (dataArray[i] / 255) * canvas.height * 1.2;
-
-                    // Cores neon estilo Spotify
-                    ctx.fillStyle = `hsl(${140 + i * 2}, 100%, 50%)`;
-
-                    // Desenha a barra (o '- 2' é para dar um respiro no topo)
-                    ctx.fillRect(
-                        x,
-                        canvas.height - barHeight,
-                        barWidth,
-                        barHeight,
-                    );
-
-                    x += barWidth + 1;
-                }
-
-                // Brilho dinâmico no fundo (Grave)
-                let avg = dataArray[0]; // Frequência de pico do grave
-                document.body.style.background = `radial-gradient(circle, rgba(29,185,84,${avg / 300}) 0%, #000 70%)`;
-            }
-
-            // --- EQUALIZER CONTROLS ---
-            // --- CONTROLE DO EQUALIZADOR ---
-            document.querySelectorAll('.equalizer input').forEach((s) => {
-                s.addEventListener('input', (e) => {
-                    const bandIndex = e.target.dataset.band;
-                    if (filters[bandIndex])
-                        filters[bandIndex].gain.value = parseFloat(
-                            e.target.value,
-                        );
-                });
-            });
-
-            const presets = {
-                flat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                bass: [12, 10, 8, 4, 1, 0, 0, 0, 0, 0],
-                rock: [6, 4, 3, 1, -1, -1, 1, 3, 4, 5],
-                pop: [-1, 2, 4, 5, 3, 0, -1, -2, -2, -1],
-                vocal: [-5, -3, -1, 2, 5, 6, 5, 2, 0, -3],
-                jazz: [4, 3, 1, 3, -2, -2, 0, 2, 4, 4],
-                acoustic: [5, 4, 3, 1, 3, 4, 5, 4, 3, 2],
-                dance: [7, 9, 6, 0, 2, 4, 5, 4, 1, 0],
-                small_speaker: [-10, -5, 0, 3, 5, 6, 5, 3, 0, -5],
-                techno: [5, 9, 4, -2, -3, -1, 1, 4, 8, 10],
-                lenta: [-4, -2, 0, 2, 4, 5, 4, 3, 2, 1],
-                batidao: [15, 13, 10, 2, -2, -4, -2, 0, 3, 5],
-                funk: [12, 10, 8, 4, 1, 2, 3, 4, 5, 6],
-                funk_heavy: [12, 11, 9, 4, 0, -2, 0, 2, 4, 5],
-                funky_melody: [8, 6, 4, 2, 2, 3, 2, 1, 1, 0],
-            };
-
-            document
-                .getElementById('preset')
-                .addEventListener('change', (e) => {
-                    const v = presets[e.target.value];
-                    if (v) {
-                        document
-                            .querySelectorAll('.equalizer input')
-                            .forEach((s, i) => {
-                                if (filters[i]) {
-                                    s.value = v[i];
-                                    filters[i].gain.value = v[i];
-                                }
-                            });
-                    }
-                });
-
-            // --- NOVO CONTROLE DE TECLADO INTEGRADO ---
-            let selectedBandIndex = 0; // Começa na primeira banda (31Hz)
-
-            // Função de ajuste (Declarada como constante para evitar erro de hoisting)
-            const adjustEqualizerBand = (index, delta) => {
-                const allSliders =
-                    document.querySelectorAll('.equalizer input');
-                const slider = allSliders[index];
-
-                if (slider && filters[index]) {
-                    let newValue = parseFloat(slider.value) + delta;
-                    // Garante que não saia do limite de -15 a 15
-                    newValue = Math.max(-15, Math.min(15, newValue));
-
-                    // Atualiza o componente visual (o slider mexe)
-                    slider.value = newValue;
-                    // Atualiza o som em tempo real
-                    filters[index].gain.value = newValue;
-
-                    console.log(
-                        `Banda ${slider.parentElement.innerText.trim()}Hz: ${newValue}dB`,
-                    );
-                }
-            };
-
-            window.addEventListener('keydown', (e) => {
-                // 1. SELEÇÃO DE BANDA (1 a 0)
-                if (e.key >= '0' && e.key <= '9') {
-                    // Converte tecla '1'-'9' para 0-8, e '0' para 9
-                    selectedBandIndex = e.key === '0' ? 9 : parseInt(e.key) - 1;
-                    // Feedback visual nos labels/sliders
-                    document
-                        .querySelectorAll('.equalizer input')
-                        .forEach((input, i) => {
-                            input.parentElement.style.color =
-                                i === selectedBandIndex ? '#fff' : '#1db954';
-                            input.style.outline =
-                                i === selectedBandIndex
-                                    ? '2px solid #fff'
-                                    : 'none';
-                        });
-                    return;
-                }
-
-                // 2. CONTROLES DE PLAYER E EQUALIZADOR
-                switch (e.code) {
-                    case 'Space':
-                        e.preventDefault();
-                        if (isInitialized && audioContext.state === 'suspended')
-                            audioContext.resume();
-                        audio.paused ? audio.play() : audio.pause();
-                        break;
-
-                    case 'KeyW': // W para aumentar ganho da banda selecionada
-                        e.preventDefault();
-                        adjustEqualizerBand(selectedBandIndex, 1);
-                        break;
-
-                    case 'KeyS': // S para diminuir ganho da banda selecionada
-                        e.preventDefault();
-                        adjustEqualizerBand(selectedBandIndex, -1);
-                        break;
-
-                    case 'KeyX': // X para STOP (para não conflitar com o S do equalizador)
-                        audio.pause();
-                        audio.currentTime = 0;
-                        if (bgVideo) bgVideo.pause();
-                        break;
-
-                    case 'ArrowUp':
-                        e.preventDefault();
-                        audio.volume = Math.min(1, audio.volume + 0.05);
-                        break;
-
-                    case 'ArrowDown':
-                        e.preventDefault();
-                        audio.volume = Math.max(0, audio.volume - 0.05);
-                        break;
-                }
-            });
-
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker
-                        .register('./sw.js')
-                        .then((reg) =>
-                            console.log('Green Player: Service Worker Ativo!'),
-                        )
-                        .catch((err) =>
-                            console.error('Erro no motor do Player:', err),
-                        );
-                });
-            }
-        </script>
+        <script src="./assets/player.js"></script>
     </body>
 </html>
